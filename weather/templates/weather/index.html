@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Weather Application">
+        <meta name="author" content="Shivateja Burle">
+        {% load static %}
+        <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+        <title>Weather App</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
+        <div class="container-filuid">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Weather Application</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a id="home" class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>                
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container mt-3">
+            <h1>Weather App</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+        
+        <div class="container mt-3">
+            {% if weather_data|length == 1 %}
+                <div class="alert alert-danger" role="alert">
+                    {{weather_data.error}}
+                </div>
+            {% elif weather_data|length > 1 %}
+            <section class="bg-primary">
+                <div class="container py-5 h-100">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-md-8 col-lg-6 col-xl-4">
+                      <div class="card text-dark">
+                        <div class="card-body p-4">
+                          <div class="d-flex">
+                            <h6 class="flex-grow-1">{{weather_data.city_name}}, {{weather_data.country_code}}.</h6>
+                            <h6><b>Lat:</b>{{weather_data.lat}} <b>Lon:</b>{{weather_data.lon}}</h6>
+                          </div>
+                          <div class="d-flex flex-column text-center mt-5 mb-4">
+                            <h6 class="display-4 mb-0 font-weight-bold text-dark"> {{weather_data.temperature}} </h6>
+                            <span class="small text-black-50 text-capitalize">{{weather_data.weather_description}}</span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <div class="flex-grow-1 fs-6">
+                                <div><span class="ms-1"> <b>Feels Like:</b> {{weather_data.feels_like}}</span></div>  
+                                <div><span class="ms-1"> <b>Wind Speed:</b> {{weather_data.wind_speed}} km/h</span></div>
+                                <div><span class="ms-1"> <b>Humidity:</b> {{weather_data.humidity}}% </span></div>
+                                <div><span class="ms-1"> <b>Pressure:</b> {{weather_data.pressure}} hPa </span></div>
+                            </div>
+                            <div>
+                                <img src="https://openweathermap.org/img/wn/{{weather_data.icon}}@2x.png" alt="{{weather_data.icon}}@2x.png">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                Please enter the city name and click on search.
+            </div>
+            {% endif %}
+        </div>
+    </body>
+</html>
