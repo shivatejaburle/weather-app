@@ -8,14 +8,14 @@ import json
 import urllib.request
 
 from django.views import View
-from weather.forms import WeatherForm
+from weather.forms import WeatherByCityForm
 # Create your views here.
 
 class IndexView(View):
     template_name = 'weather/index.html'
 
     def get(self, request):
-        form = WeatherForm()
+        form = WeatherByCityForm()
         context = {'form':form}
         return render(request, self.template_name, context)
     
@@ -23,7 +23,7 @@ class IndexView(View):
         get_city = request.POST['city']
         city = get_city.replace(" ", "%20")
         print(city)
-        form = WeatherForm()
+        form = WeatherByCityForm()
         try:
             # Get your  API Key from OpenWeather and replace the key below with yours
             # https://openweathermap.org/

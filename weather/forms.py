@@ -1,4 +1,4 @@
 from django import forms
 
-class WeatherForm(forms.Form):
+class WeatherByCityForm(forms.Form):
     city = forms.CharField(max_length=50)
