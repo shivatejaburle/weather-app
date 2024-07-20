@@ -45,41 +45,53 @@
                     {{weather_data.error}}
                 </div>
             {% elif weather_data|length > 1 %}
-            <section class="bg-primary">
-                <div class="container py-5 h-100">
-                  <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-md-8 col-lg-6 col-xl-4">
-                      <div class="card text-dark">
-                        <div class="card-body p-4">
-                          <div class="d-flex">
-                            <h6 class="flex-grow-1">{{weather_data.city_name}}, {{weather_data.country_code}}.</h6>
-                            <h6><b>Lat:</b>{{weather_data.lat}} <b>Lon:</b>{{weather_data.lon}}</h6>
-                          </div>
-                          <div class="d-flex flex-column text-center mt-5 mb-4">
-                            <h6 class="display-4 mb-0 font-weight-bold text-dark"> {{weather_data.temperature}} </h6>
-                            <span class="small text-black-50 text-capitalize">{{weather_data.weather_description}}</span>
-                          </div>
-                          <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 fs-6">
-                                <div><span class="ms-1"> <b>Feels Like:</b> {{weather_data.feels_like}}</span></div>  
-                                <div><span class="ms-1"> <b>Wind Speed:</b> {{weather_data.wind_speed}} km/h</span></div>
-                                <div><span class="ms-1"> <b>Humidity:</b> {{weather_data.humidity}}% </span></div>
-                                <div><span class="ms-1"> <b>Pressure:</b> {{weather_data.pressure}} hPa </span></div>
+                <!-- Widget 1 -->
+                <h1>Widget 1</h1>
+                <div id="openweathermap-widget-15"></div>
+                <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '{{weather_data.city_id}}',appid: '{{weather_api_key}}',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+
+                <!-- Widget 2 -->
+                <br><h1>Widget 2</h1>
+                <div id="openweathermap-widget-1"></div>
+                <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 1,cityid: '{{weather_data.city_id}}',appid: '{{weather_api_key}}',units: 'metric',containerid: 'openweathermap-widget-1',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+
+                <!-- Custom Widget -->
+                <br><h1>Custom Widget</h1>
+                <section class="bg-primary">
+                    <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-md-8 col-lg-6 col-xl-4">
+                        <div class="card text-dark">
+                            <div class="card-body p-4">
+                            <div class="d-flex">
+                                <h6 class="flex-grow-1">{{weather_data.city_name}}, {{weather_data.country_code}}.</h6>
+                                <h6><b>Lat:</b>{{weather_data.lat}} <b>Lon:</b>{{weather_data.lon}}</h6>
                             </div>
-                            <div>
-                                <img src="https://openweathermap.org/img/wn/{{weather_data.icon}}@2x.png" alt="{{weather_data.icon}}@2x.png">
+                            <div class="d-flex flex-column text-center mt-5 mb-4">
+                                <h6 class="display-4 mb-0 font-weight-bold text-dark"> {{weather_data.temperature}} </h6>
+                                <span class="small text-black-50 text-capitalize">{{weather_data.weather_description}}</span>
                             </div>
-                          </div>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 fs-6">
+                                    <div><span class="ms-1"> <b>Feels Like:</b> {{weather_data.feels_like}}</span></div>  
+                                    <div><span class="ms-1"> <b>Wind Speed:</b> {{weather_data.wind_speed}} km/h</span></div>
+                                    <div><span class="ms-1"> <b>Humidity:</b> {{weather_data.humidity}}% </span></div>
+                                    <div><span class="ms-1"> <b>Pressure:</b> {{weather_data.pressure}} hPa </span></div>
+                                </div>
+                                <div>
+                                    <img src="https://openweathermap.org/img/wn/{{weather_data.icon}}@2x.png" alt="{{weather_data.icon}}@2x.png">
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                      </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </section>
+                    </div>
+                </section>             
             {% else %}
-            <div class="alert alert-info" role="alert">
-                Please enter the city name and click on search.
-            </div>
+                <div class="alert alert-info" role="alert">
+                    Please enter the city name and click on search.
+                </div>
             {% endif %}
         </div>
     </body>

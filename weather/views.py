@@ -39,7 +39,7 @@ class IndexView(View):
             temperature_c = round(float(list_of_data['main']['temp']) - 273.15, 2)
             temperature_feels_like = round(float(list_of_data['main']['feels_like']) - 273.15, 2)
 
-            # Get data from list_of_date
+            # Get data from list_of_data
             weather_data = {
                 'city_name' : str(list_of_data['name']),
                 'country_code' : str(list_of_data['sys']['country']),
@@ -52,14 +52,23 @@ class IndexView(View):
                 'wind_speed' : str(list_of_data['wind']['speed']),
                 'weather_description' : str(list_of_data['weather'][0]['description']),
                 'icon' : str(list_of_data['weather'][0]['icon']),
+                'city_id': str(list_of_data['id']),
+                
 
             }
-            context = {'form':form, 'weather_data':weather_data}
+            context = {
+                'form':form, 
+                'weather_data':weather_data, 
+                'weather_api_key': settings.WEATHER_API_KEY
+            }
         except:
             print("City not found")
             weather_data = {
-                'error' : city + ' city not found. Please enter a valid city name.',
+                'error' : get_city + ' city not found. Please enter a valid city name.',
             }
-            context = {'form':form, 'weather_data':weather_data}
+            context = {
+                'form':form, 
+                'weather_data':weather_data
+            }
 
         return render(request, self.template_name, context)
